@@ -3,7 +3,7 @@
 mkdir -p "${BACKUPDIR?}"
 
 echo "Fetching backups from GCS"
-rclone sync gcs:${GCS_BUCKET?}/backups/ "${BACKUPDIR?}"
+rclone sync --max-age 2d gcs:${GCS_BUCKET?}/backups/ "${BACKUPDIR?}"
 
 for f in `/bin/ls -rt "${BACKUPDIR}"/*.tgz | tail -1`; do
     echo "Extracting backup: $f"
